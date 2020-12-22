@@ -1,0 +1,17 @@
+<Dropdown
+                  label="niveau"
+                  items={[
+                     {label: 'INDP1', value: '1', icon: () => <Icon name="" size={18} color="#900" />, hidden: true},
+                     {label: 'INDP2', value: '2', icon: () => <Icon name="" size={18} color="#900" />},
+                     {label: 'INDP3', value: '3', icon: () => <Icon name="" size={18} color="#900" />},
+                     ]}
+                     defaultValue={this.state.niveau}
+    
+                     style={{flex : 1,paddingVertical: 15 , paddingHorizontal : 30 ,backgroundColor: '#fafafa'}}
+                     
+                    
+                   onChangeItem={item => this.setState({
+                    niveau: item.value
+                    })}
+
+                />
