@@ -13,7 +13,7 @@ function AssoStackScreen( {route, navigation}) {
     <AssoStack.Navigator>
         <AssoStack.Screen name= "main"  options={{ headerShown: false }} initialParams={{ mail: route.params.mail, refresh : true}} component = {AssoScreen} />
         <AssoStack.Screen name = "creation" component = {AddAssos}/>
-        <AssoStack.Screen name = "detail" component= {AssoDetail} />
+        <AssoStack.Screen name = "detail" component= {AssoDetail} options={({ route }) => ({ title: route.params.item.Nom })}/>
         <AssoStack.Screen name = "editAsso" component = {EditAsso}/>
     </AssoStack.Navigator>
   );

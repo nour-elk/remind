@@ -1,6 +1,8 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import {TextInput, Button, Text, View, FlatList, Alert, TouchableOpacity } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import {useState} from "react";
 import Api from '../../../../services/dataService'
 import react, {Component} from 'react';
@@ -19,12 +21,21 @@ function AssoDetail({route, navigation}){
   const editButton = () => {
     if (route.params.item.Admin.includes(route.params.mail))
     {
-      return (<Button title="edit" onPress = {() => navigation.navigate("editAsso", {assoID: route.params.item.ID})} />)
+      return (
+      <TouchableOpacity onPress = {() => navigation.navigate("editAsso", {assoID: route.params.item.ID})}>
+          <EvilIcons name = {"pencil"} size = {40}/>
+      </TouchableOpacity>)
     }
   }
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        editButton()
+      ),
+    });
+  }, [navigation]);
     return (
       <View>
-        {editButton()}
         {console.log(route.params)}
         <Text>{route.params.item.Nom}</Text>
         <Text>{route.params.item.Description}</Text>
