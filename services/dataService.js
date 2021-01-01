@@ -190,9 +190,7 @@ export default {
           )
         ,withCredentials: true ,} 
     ).then( (response)  => response.json()).then( data =>
-            { 
-              console.log(data);
-              Data = data;
+            { Data = data;
             })
     return Data;
   },
@@ -214,12 +212,42 @@ export default {
           )
         ,withCredentials: true ,} 
    ).then( (response)  => response.json()).then( data =>
-    { console.log(JSON.stringify("done"));
-      Data = data;
-      
+    { Data = data;
        })
+    return Data;
+  },
+  RemoveMember : async(Email, Category,assoID, Occurences  ) =>{
+    const url = serverBaseUrl + "/RemoveMember"
+    var Data
+
+    await fetch(url, {method: 'POST', 
+            mode: 'cors',
+            headers: { 'Access-Control-Allow-Origin' : "*",
+            'Accept': 'application/json',
+            'Content-Type': ['text/plain;charset=UTF-8','application/json'] 
+        },
+           body :JSON.stringify(
+              {body: {
+                'Email': String(Email),
+                'CategoryName' : String(Category),
+                'assoID' : String(assoID),
+                'Occurences' : Occurences,
+                
+          }}
+          )
+        ,withCredentials: true ,} 
+   ).then( (response)  => response.json()).then( data =>
+      { 
+        console.log(data)
+        Data = data;      
+      
+      })
     return Data;
   }
     
+
+
+
+
 }
 
