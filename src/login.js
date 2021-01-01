@@ -51,39 +51,44 @@ export default class Login extends Component{
 
     render() {
      return (
-         <View style = {{flex : 1}}>
-            
-             <View style={styles.container} />
-             <Image source={require('../src/images/logo.png')} 
-                style={{  width: 130,
-                    height: 130,
-                    marginLeft: "30%",
-                    marginRight: "30%", 
-                    marginTop : "5%"}} />
-             <View style = {{marginBottom : "30%"}} />
-             <View style= {{flex :1}}>
-            
-             <TextInput style = {styles.LoginTextBox} placeholder = 'Email' onChangeText = {text => this.setEmail(text)}/>
-             
-             <TextInput style = {styles.LoginTextBox} placeholder = 'Password' onChangeText = {text => this.setPassword(text)} />
-             
-             <View style={{margin:7}} />
-            <View style = {styles.buttonStyle}>
-             <Button  style = {{marginBottom : 10,
-            marginBottom : 10}}
-                onPress={ this.onLoginPress}
-                title="Log in"
-            />
+        <View style = {styles.main_container}>
+            <View style={styles.container}>
+                <Image 
+                    source={require('../src/images/logo.png')} 
+                    style={styles.image}
+                 />
+                <TextInput 
+                    style = {styles.LoginTextBox} 
+                    placeholder = 'Email' 
+                    onChangeText = {text => this.setEmail(text)}
+                />
+                <TextInput 
+                    style = {styles.LoginTextBox} 
+                    placeholder = 'Password' 
+                    onChangeText = {text => this.setPassword(text)} 
+                />
+                <View style = {styles.buttonStyle}>
+                        < Button  
+                            color="#7a25ff"
+                            style = {{
+                            marginBottom : 10,
+                            marginBottom : 10}}
+                            onPress={ this.onLoginPress}
+                            title="Log in"
+                        />
+                </View>
+                <View style = {styles.buttonStyle}>
+                    <Button
+                        color="#7a25ff" 
+                        style = {{
+                        marginBottom : 10,
+                        marginBottom : 10}}
+                        onPress ={this.onSignPress} 
+                        title="Sign up" 
+                    />
+                </View>
             </View>
-            <View style = {styles.buttonStyle}>
-            <Button style = {{marginBottom : 10,
-            marginBottom : 10}}
-             onPress ={this.onSignPress} 
-            title="Sign up" />
-            </View>
-            </View>
-            <Text> {this.state.textValue} </Text>
-         </View>
+        </View>
      )
  }
 }
@@ -92,12 +97,18 @@ export default class Login extends Component{
 const styles = StyleSheet.create(
     {
         container   : {
-            marginTop: "15%"
+            marginTop: "30%",
+            alignContent:'center',
+            marginLeft: 20,
+            marginRight: 20,
+            backgroundColor:'#0d1440',
+            borderRadius: 10
             },
         LoginTextBox : {
             marginLeft: 30,
             marginRight: 30,
             height: 40,
+            backgroundColor:'#ffffff',
             borderColor: '#000000',
             borderWidth: 0.5,
             paddingLeft: 5,
@@ -109,6 +120,16 @@ const styles = StyleSheet.create(
             marginRight: 110,
             marginBottom : 10,
             marginBottom : 10
+        },image:{
+            width: 130,
+            height: 130,
+            marginLeft: "30%",
+            marginRight: "30%", 
+            marginTop : "5%",
+            marginBottom:"5%"
+        },
+        main_container:{
+            flex:1
         }
     }
 )
