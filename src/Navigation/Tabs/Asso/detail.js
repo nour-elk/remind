@@ -89,6 +89,16 @@ class AssoDetailC extends React.Component{
               <EntypoIcons name = "untag" size = {30}/>
             <Text style = {{fontSize: 20}}>  Retirer categorie</Text>
           </TouchableOpacity>
+
+          <TouchableOpacity onPress = {() => {this.props.navigation.navigate("addEvent"),{}}}
+                            style = {{flex : 0 , flexDirection : "row", marginBottom : 15}} >
+            <View style = {{width : 10, height: 10}}/>
+            <EntypoIcons name = "flag" size = {30}/>
+            <Text style = {{fontSize: 20}}>  ajouter évènement </Text>
+          </TouchableOpacity>
+
+
+
     </MyView>
           <TouchableOpacity style = {{flex : 0 , flexDirection : "row", marginBottom : 15}} >
             <View style = {{width : 10, height: 10}}/>

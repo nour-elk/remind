@@ -9,6 +9,7 @@ import addMember from "./Asso-Options/ajouterMembre"
 import addCategory from "./Asso-Options/ajouterCategorie"
 import removeMember from "./Asso-Options/retirerMembre"
 import removeCategory from "./Asso-Options/retirerCategorie"
+import addEvent from "./Asso-Options/ajouterEvent"
 
 const AssoStack = createStackNavigator();
 
@@ -23,7 +24,7 @@ function AssoStackScreen( {route, navigation}) {
         <AssoStack.Screen name = "addCategory" component = {addCategory}/>
         <AssoStack.Screen name = "remomveMember" component = {removeMember}/>
         <AssoStack.Screen name = "removeCategory" component = {removeCategory}/>
-         
+        <AssoStack.Screen name = "addEvent" component = {addEvent}/> 
     </AssoStack.Navigator>
   );
 }
