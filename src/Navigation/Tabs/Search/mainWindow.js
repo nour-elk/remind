@@ -1,4 +1,4 @@
-import {TextInput, Button, Text, View, FlatList, Alert, TouchableOpacity } from 'react-native';
+import {StyleSheet,TextInput, Button, Text, View, FlatList, Alert, TouchableOpacity } from 'react-native';
 import react, {Component} from 'react';
 import * as React from 'react';
 import {useState} from "react";
@@ -45,27 +45,49 @@ function mainScreen({ navigation }) {
   console.log("hello")
   return (
     <View style={{ flex: 1 }}>
-        <View style = {{flex : 0 ,height : 40}}/>
-        <View style = {{flex :1  }}>
+        <View style = {{flex :1,marginTop:40,marginLeft:5,marginRight:5 }}>
   
-          <View style={{ flex: 1, flexDirection: 'row'}}>
-            <TextInput style= {{flex:1}} placeholder = 'Search' onChangeText = {Search => updateSearch(Search)} />          
+          <View style={{flex:1}}>
+            <TextInput style= {styles.textInput} 
+              placeholder = 'Search' 
+              onChangeText = {Search => updateSearch(Search)} 
+            />
+            <Button  
+              color='#7a25ff' 
+              title='Search'
+              onPress={()=>updateSearch(Search)} 
+            />        
           </View>
-        </View>
-        <View style = {{flex : 16}}>
-        <FlatList  
+        
+        <View style = {{flex : 4}}>
+          <FlatList  
             data =  {Users}
             renderItem = { ( {item}) => <UserItem User = {item} detailsUser = {DisplayUser}/> }
-            onEndReachedThreshold={0.7}
+            onEndReachedThreshold={0.5}
             onEndReached={() => {
               console.log("end reached");
             }}
           />
 
         </View>
+       </View>
+
       
     </View>
   );
 }
+const styles=StyleSheet.create({
+  textInput:{
+    marginBottom:5,
+    height:50,
+    borderColor:'#000000',
+    borderWidth:1,
+    paddingLeft:5,
+  },
+  button:{
+  }
+}
+
+)
 
   export default mainScreen;
