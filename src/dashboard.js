@@ -22,6 +22,7 @@ export default class Dashboard extends Component{
         <View style = {styles.buttonStyle}>
          <Button onPress = {this.buttonPress} style = {styles.buttonStyle}
             title="Sign out"
+            color="#7a25ff"
         />
         </View>
     </View>

@@ -35,6 +35,7 @@ function mainScreen({ navigation }) {
     {
     Api.getUsers(Search).then((Data) =>{
       console.log(JSON.stringify(Data.Items));
+      alert(JSON.stringify(Data.Items));
       searchUsers(Data.Items);
     })
   }
