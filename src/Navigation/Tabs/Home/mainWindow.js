@@ -69,7 +69,6 @@ function HomeScreen({route, navigation }) {
 
      const styles = StyleSheet.create({
       mainContainer :{ 
-        marginTop: 150,
         flex : 1,
       },
       Header : {
