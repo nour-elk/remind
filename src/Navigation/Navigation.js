@@ -12,16 +12,10 @@ import react, {Component} from 'react';
 import AssoStackScreen from "./Tabs/Asso/AssoStack";
 import SearchStackScreen from "./Tabs/Search/SearchStack";
 import ProfileStackScreen from "./Tabs/Profile/ProfileStack";
+import HomeStackScreen from "./Tabs/Home/HomeStack";
 
 
 
-function HomeStackScreen() {
- return (
-   <View>
-     <Text style={{textAlign: 'center', marginTop: 300}}>Home Screen</Text>
-   </View>
-  );
-}
 
 
 const Tab = createBottomTabNavigator();
@@ -64,7 +58,7 @@ export default function show(mail) {
       })}
       tabBarOptions={{ activeTintColor: 'tomato', inactiveTintColor: 'gray',}}
       >
-        <Tab.Screen name="Home" component={HomeStackScreen} />
+        <Tab.Screen name="Home" component={HomeStackScreen} initialParams={{ mail: mail }}/>
         <Tab.Screen name="Search" component= {SearchStackScreen} initialParams = {{refresh: true}}/>
         <Tab.Screen name="Profile" component= {ProfileStackScreen} initialParams={{ mail: mail }}/>
         <Tab.Screen name="Asso"  component= {AssoStackScreen} initialParams={{ mail: mail }}/>

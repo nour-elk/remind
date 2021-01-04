@@ -1,0 +1,19 @@
+Nom du projet
+Remind
+ID du projet
+remind-300622
+Numéro du projet
+649716511232
+
+Utilisez cette clé dans votre application en la transmettant avec le paramètre key=API_KEY.
+
+clé API
+AIzaSyAnNoReLkgZdFdUe_eQG-ZZZMQcdISFCgY
+
+
+Adding the API key to your request
+You must include an API key with every Maps JavaScript API request. In the following example, replace YOUR_API_KEY with your API key.
+
+
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"
+  type="text/javascript"></script>

@@ -1,6 +1,6 @@
 
-
 const serverBaseUrl= 'https://mk7t0lal8k.execute-api.eu-west-3.amazonaws.com';
+const googleServerUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=";
 
 
 
@@ -243,8 +243,70 @@ export default {
       
       })
     return Data;
-  }
+  },
+  submitCreateEvent : async  (ID, Nom, Description,DateDeb ,TimeDeb ,DateFin,TimeFin) =>{
+    const url = serverBaseUrl + "/addEvent";
+    var Data ;
     
+    await fetch(url, {method: 'POST', 
+            mode: 'cors',
+            headers: { 'Access-Control-Allow-Origin' : "*",
+            'Accept': 'application/json',
+            'Content-Type': ['text/plain;charset=UTF-8','application/json'] 
+        },
+           body :JSON.stringify(
+              {body: {
+                'ID': String(ID),
+                'Nom' : String(Nom),
+                'Description' : String(Description),
+                'DateDeb': String(DateDeb),
+                'TimeDeb': String(TimeDeb),
+                'DateFin': String(DateFin),
+                'TimeFin': String(TimeFin)
+          }}
+          )
+        ,withCredentials: true ,} 
+    ).then( (response)  => response.json()).then( data =>
+            {   Data = data;})
+    return Data;
+},
+
+getAddress(latitude,longitude ){
+  const url =googleServerUrl + latitude+"," +longitude +"&key=AIzaSyAnNoReLkgZdFdUe_eQG-ZZZMQcdISFCgY";
+  var Data;
+  //function to get address using current lat and lng
+  fetch(url ).then((response) => response.json()).then((responseJson) => {
+    console.log("ADDRESS GEOCODE is BACK!! => " +
+  JSON.stringify(responseJson));
+     
+   Data= JSON.stringify(responseJson.results[0].formatted_address).replace(/"/g, "");
+       
+     })
+     return Data;
+  },
+  
+  getEvent : async(Email) =>{
+    const url = serverBaseUrl + "/getEvent"
+    var Data
+
+    await fetch(url, {method: 'POST', 
+            mode: 'cors',
+            headers: { 'Access-Control-Allow-Origin' : "*",
+            'Accept': 'application/json',
+            'Content-Type': ['text/plain;charset=UTF-8','application/json'] 
+        },
+           body :JSON.stringify(
+              {body: {
+                'Email': String(Email),
+          }}
+          )
+        ,withCredentials: true} 
+    ).then( (response)  => response.json()).then( data =>
+            { Data = data;
+              
+               })
+    return Data;
+  }    
 
 
 
