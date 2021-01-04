@@ -56,22 +56,25 @@ const HomeStack = createStackNavigator();
 function HomeStackScreen({route,navigation}) {
   return (
     <View style={{ flex: 1}}> 
+    <View  style={{ flex: 1}}>
     <TouchableOpacity  style = {{  borderLeftWidth:1, borderLeftColor :"#c2c2c2", flex : 1, backgroundColor : "white"}}>
    <View style={{ marginTop: 30 , flex: 0,flexDirection: 'row',borderBottomColor: 'black',borderBottomWidth: 1,height : 32.2}}>
      <Text style= {{fontSize : 20}}>Home</Text>
    </View>
    </TouchableOpacity>
-   <View style={{ flex: 1000, marginTop:80, marginLeft:165}}> 
+   </View>
+   <View style={{ flex: 1, marginTop:80,marginBottom:40, marginLeft:165}}> 
              <Home navigation={navigation}/>
              </View>  
-             <View style ={{marginTop:60}}/> 
             
-    
-    <HomeStack.Navigator>
+            
+    <View style={{ flex: 10000, justifyContent:"flex-start"}}> 
+    <HomeStack.Navigator >
       <HomeStack.Screen name= "TousEvent"  options={{ headerShown: false }} initialParams={{ mail: route.params.mail , refresh : true}} component = {HomeScreen}/>
       <HomeStack.Screen name= "Favoris"  options={{ headerShown: false }} component = {secondaryHomeScreen}/>
       <HomeStack.Screen name = "details" component= {EventDetail} options={{headerShown : false}}/>
     </HomeStack.Navigator>
+    </View>
     </View>
   );
 }

@@ -1,5 +1,5 @@
 import Api from '../../../../services/dataService';
-import {TextInput, Button, Text, View,ScrollView, FlatList, Alert, TouchableOpacity } from 'react-native';
+import {TextInput, Button, Text, View,ScrollView, FlatList, Alert, TouchableOpacity ,StyleSheet} from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import react, {Component, Fragment} from 'react';
 import {useState} from "react";
@@ -32,9 +32,9 @@ function HomeScreen({route, navigation }) {
   var [Event, SetEvent] = useState([]);
     const getEvents= () => {
        Api.getEvent(route.params.mail).then((Data) => {
-         //alert(Data.Items.Object.Nom)
-         //console.log (Data.Items.Object.Nom)
-        SetEvent(Data.Items.Object)
+        console.log(JSON.stringify(Data.Items))
+        
+        SetEvent(Data.Items)
       })
     };
 
@@ -46,8 +46,9 @@ function HomeScreen({route, navigation }) {
 
 
     return(
-            
-      <View >
+      <View style=  {styles.mainContainer} >      
+      <View style = {styles.secondaryBottomContainer}>
+        <Text>hhhh</Text>
           
       <FlatList  
         data =  {Event}
@@ -58,11 +59,28 @@ function HomeScreen({route, navigation }) {
           console.log("end reached");
         }}
       />
-      
+      </View>
       </View>
 
            ) 
    }
    
      export default HomeScreen;
+
+     const styles = StyleSheet.create({
+      mainContainer :{ 
+        marginTop: 150,
+        flex : 1,
+      },
+      Header : {
+        flex: 0,
+        flexDirection: 'row', 
+        borderBottomColor: 'black',
+        borderBottomWidth: 1,
+      },
+      secondaryBottomContainer : {
+        backgroundColor : "#f5f5f5",  
+        flex : 1
+      },
+    })
    
