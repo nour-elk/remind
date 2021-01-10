@@ -47,7 +47,9 @@ class EditWindow extends Component{
             <View>
                 <Text> Add Category </Text>
                 <TextInput placeholder= "Category name" onChangeText ={text => this.setCategoryTextInput(text)}/>
-                <Button title= "Ajouter une Categorie" onPress =  {this.addCategory} />
+                <Button title= "Ajouter une Categorie" 
+                color="#7a25ff"
+                onPress =  {this.addCategory} />
             </View>
         )
 

@@ -48,7 +48,7 @@ function HomeScreen({route, navigation }) {
     return(
       <View style=  {styles.mainContainer} >      
       <View style = {styles.secondaryBottomContainer}>
-        <Text>hhhh</Text>
+        
           
       <FlatList  
         data =  {Event}
@@ -69,6 +69,7 @@ function HomeScreen({route, navigation }) {
 
      const styles = StyleSheet.create({
       mainContainer :{ 
+        
         flex : 1,
       },
       Header : {

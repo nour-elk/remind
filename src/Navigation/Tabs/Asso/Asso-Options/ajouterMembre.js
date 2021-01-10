@@ -115,7 +115,9 @@ class EditWindow extends Component{
                     }}
                     listProps={{nestedScrollEnabled: true,}}
                     />
-            <Button title= "Ajouter membre" onPress = {this.addMember}/>
+            <Button title= "Ajouter membre" 
+            color="#7a25ff"
+            onPress = {this.addMember}/>
             </Fragment>
             
 

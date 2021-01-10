@@ -48,6 +48,7 @@ function AssoScreen({route, navigation}) {
     const getAsso= () => {
        Api.getAssos(route.params.mail).then((Data) => {
          console.log(Data)
+         
         SetAssos(Data.Items)
       })
     };
@@ -69,7 +70,7 @@ function AssoScreen({route, navigation}) {
     
           <View style={styles.Header}>
 
-            <View style = {{flex: 1,  textAlignVertical: 'center'}}> 
+            <View style = {{flex: 1, alignItems:'center'}}> 
               <Text style = {styles.textHeader}>Clubs</Text> 
             </View>
             
@@ -119,8 +120,9 @@ function AssoScreen({route, navigation}) {
       flex : 1,
       fontWeight:"bold",
       fontSize: 20, 
-      color:"black",
-      height :20
+  
+      height :20,
+      color:"#7a25ff",
     },
     ButtonAdd : {
       flex : 0,

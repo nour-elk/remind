@@ -33,7 +33,8 @@ function AddAssos({route, navigation}){
      <TextInput style={{height:50}} placeholder = 'Name' onChangeText = {Name => setName(Name)}/>
      <TextInput style={{marginBottom: 30 }} placeholder = 'Description' onChangeText = {Description => setDescription(Description)}/>
      <Button style={{marginTop: 30 }} onPress={ addAssosButton}
-     title ='Ajouter Association ou Club '/>
+     title ='Ajouter Association ou Club '
+     color="#7a25ff" />
     </View>
     )
   }

@@ -56,7 +56,7 @@ export default function show(mail) {
       return <Ionicons name={iconName} size={size} color={color} />;
         },
       })}
-      tabBarOptions={{ activeTintColor: 'tomato', inactiveTintColor: 'gray',}}
+      tabBarOptions={{ activeTintColor: '#660033', inactiveTintColor: 'gray',}}
       >
         <Tab.Screen name="Home" component={HomeStackScreen} initialParams={{ mail: mail }}/>
         <Tab.Screen name="Search" component= {SearchStackScreen} initialParams = {{refresh: true}}/>

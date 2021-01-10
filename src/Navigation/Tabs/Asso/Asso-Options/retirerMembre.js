@@ -143,7 +143,9 @@ class EditWindow extends Component{
                     />
                     
                     
-                    <Button title= "Virer un membre" onPress =  {this.removeMemberCategory}  />
+                    <Button title= "Virer un membre" 
+                    color="#7a25ff"
+                    onPress =  {this.removeMemberCategory}  />
 
             </Fragment>
         )

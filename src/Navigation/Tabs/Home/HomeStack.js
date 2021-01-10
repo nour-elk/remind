@@ -58,11 +58,14 @@ function HomeStackScreen({route,navigation}) {
     <View style={{ flex: 1}}> 
     <View  style={{ flex: 1}}>
     <TouchableOpacity  style = {{  borderLeftWidth:1, borderLeftColor :"#c2c2c2", flex : 1, backgroundColor : "white"}}>
-   <View style={{ marginTop: 30 , flex: 0,flexDirection: 'row',borderBottomColor: 'black',borderBottomWidth: 1,height : 32.2}}>
-     <Text style= {{fontSize : 20}}>Home</Text>
+   <View style={{ alignItems: 'center', marginTop: 30 , flex: 0,flexDirection: 'row',borderBottomColor: 'black',borderBottomWidth: 1,height : 32.2}}>
+     <View > 
+     <Text style= {{fontSize : 20,  color: "#7a25ff", fontWeight:"bold"}}>Home</Text>
+     
+   </View>
    </View>
    </TouchableOpacity>
-   </View>
+  
    <View style={{ flex: 1, marginTop:80,marginBottom:40, marginLeft:165}}> 
              <Home navigation={navigation}/>
              </View>  
@@ -74,6 +77,7 @@ function HomeStackScreen({route,navigation}) {
       <HomeStack.Screen name= "Favoris"  options={{ headerShown: false }} component = {secondaryHomeScreen}/>
       <HomeStack.Screen name = "details" component= {EventDetail} options={{headerShown : false}}/>
     </HomeStack.Navigator>
+    </View>
     </View>
     </View>
   );

@@ -71,7 +71,9 @@ class EditWindow extends Component{
                     />
                     
                     
-                    <Button title= "Retirer une categorie" onPress =  {this.removeCategory}  />
+                    <Button title= "Retirer une categorie" 
+                    color="#7a25ff"
+                    onPress =  {this.removeCategory}  />
 
         </Fragment>
         )       

@@ -1,4 +1,4 @@
-import {TextInput, Button, Text, View, FlatList, Alert, TouchableOpacity,StyleSheet  } from 'react-native';
+import {TextInput,Image,  Button, Text, View, FlatList, Alert, TouchableOpacity,StyleSheet  } from 'react-native';
 import react, {Component} from 'react';
 import {useState} from "react";
 import Api from '../../../../services/dataService'
@@ -94,7 +94,7 @@ class Profil extends React.Component{
 
 
 
-            <View style = {{flex: 1,  textAlignVertical: 'center'}}> 
+            <View style = {{flex: 1,  alignItems:'center', textAlignVertical: 'center'}}> 
               <Text style = {styles.textHeader}>Profil</Text> 
             </View>
 
@@ -106,10 +106,11 @@ class Profil extends React.Component{
           </View>
         
           <TouchableOpacity disabled ={!this.state.open} onPress={this.toggleOpen} style={styles.body}>
+            <Image style={styles.image } source={{uri:"image"}}/>
           <Text style ={styles.text}>{this.props.Profile.Nom}</Text> 
          
           <Text style ={styles.text}>{this.props.Profile.Prenom}</Text>
-         <Text style ={styles.text}>{this.props.Profile.Niveau}</Text>
+         <Text style ={styles.text}>INDP {this.props.Profile.Niveau}</Text>
            </TouchableOpacity>
            <Button 
           title="configurer profil"
@@ -155,8 +156,9 @@ function ProfileScreen({route, navigation }) {
     flex : 1,
     fontWeight:"bold",
     fontSize: 20, 
-    color:"black",
-    height :20
+    color:"#7a25ff",
+    height :20,
+    alignContent:'center'
   },
   ButtonAdd : {
     flex : 0,
@@ -173,7 +175,13 @@ function ProfileScreen({route, navigation }) {
     body: {
       flex: 1,
       alignItems: 'center',
-      justifyContent: 'center',
+      justifyContent: 'flex-start',
+    },
+    image :{
+      height:170,
+      width:120,
+      margin:5,
+      backgroundColor:'gray'
     }
    
     

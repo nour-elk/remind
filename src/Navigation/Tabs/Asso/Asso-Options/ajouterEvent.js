@@ -336,11 +336,13 @@ class Event extends React.Component{
                     <View style ={{marginLeft : 90,marginRight: 90, marginBottom:20}}>
                 <Button 
                     onPress={this.onAddLocation }
+                    color="#7a25ff"
                     title="add localisation"/>
                     </View>
                     <View style ={{marginTop : 15,marginLeft : 210,marginRight: 20}}>
                 <Button 
                     onPress={ this.AddEvent}
+                    color="#7a25ff"
                     title="add event"/>
                     </View>
                     </View>
