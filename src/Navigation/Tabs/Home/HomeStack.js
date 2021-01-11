@@ -1,4 +1,4 @@
-import { NavigationContainer } from '@react-navigation/native';
+
 import {TextInput, Button, Text, View,ScrollView, FlatList, Alert, TouchableOpacity } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import DropDownPicker from 'react-native-dropdown-picker';

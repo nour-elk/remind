@@ -72,6 +72,7 @@ export default {
                 'Email': String(Email),
                 'Nom' : String(Name),
                 'Description' : String(Description)
+
           }}
           )
         ,withCredentials: true ,} 
@@ -306,7 +307,59 @@ getAddress(latitude,longitude ){
               
                })
     return Data;
-  }    
+  },
+
+  EditPassword : async(Email, Password, Password1 ) =>{
+    const url = serverBaseUrl + "/editPassword"
+    var Data
+
+    await fetch(url, {method: 'POST', 
+            mode: 'cors',
+            headers: { 'Access-Control-Allow-Origin' : "*",
+            'Accept': 'application/json',
+            'Content-Type': ['text/plain;charset=UTF-8','application/json'] 
+        },
+           body :JSON.stringify(
+              {body: {
+                'Email': String(Email),
+                'Password' : String(Password),
+                'Password_new' : String(Password1)
+          }}
+          )
+        ,withCredentials: true} 
+    ).then( (response)  => response.json()).then( data =>
+            { Data = data;
+              
+               })
+    return Data;
+  },
+
+  sendImage : async(Email, sData , tableName,key) =>{
+    const url = serverBaseUrl + "/sendImage"
+    var Data
+
+    await fetch(url, {method: 'POST', 
+            mode: 'cors',
+            headers: { 'Access-Control-Allow-Origin' : "*",
+            'Accept': 'application/json',
+            'Content-Type': ['text/plain;charset=UTF-8','application/json'] 
+        },
+           body :JSON.stringify(
+              {body: {
+                'Email': String(Email),
+                'Data' : String(sData),
+                'tableName' : String(tableName),
+                'key': String(key)
+          }}
+          )
+        ,withCredentials: true} 
+    ).then( (response)  => response.json()).then( data =>
+            { alert(JSON.stringify(data))
+              Data = data;
+              
+               })
+    return Data;
+  },
 
 
 

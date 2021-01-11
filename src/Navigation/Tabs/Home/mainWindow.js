@@ -32,7 +32,7 @@ function HomeScreen({route, navigation }) {
   var [Event, SetEvent] = useState([]);
     const getEvents= () => {
        Api.getEvent(route.params.mail).then((Data) => {
-        console.log(JSON.stringify(Data.Items))
+        // console.log(JSON.stringify(Data.Items))
         
         SetEvent(Data.Items)
       })

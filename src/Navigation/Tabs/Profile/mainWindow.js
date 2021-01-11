@@ -7,12 +7,13 @@ import MenuDrawer from 'react-native-side-drawer';
 
 import AntDesignIcons from 'react-native-vector-icons/AntDesign'
 import { render } from 'react-dom';
+var imageLink = "https://mk7t0lal8k.execute-api.eu-west-3.amazonaws.com/getImage/";
 
 function getUserProfil(mail) {
   var [Profile, SetProfil] = useState([{Nom: "charging"}]);
   
   Api.getProfil(mail).then((Data) => {
-    //console.log(JSON.stringify(Data.Item))
+    console.log(JSON.stringify(Data.Item))
     SetProfil(Data.Item)
     
   })
@@ -64,7 +65,7 @@ class Profil extends React.Component{
             </View>
 
 
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('Parametres')} style = {{flex : 0 , flexDirection : "row", marginBottom : 15}} >
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('photoParam')} style = {{flex : 0 , flexDirection : "row", marginBottom : 15}} >
             <View style = {{width : 10, height: 10}}/>
               <AntDesignIcons name = "picture" size = {30}/>
             <Text style = {{fontSize: 20}}>  changer ma photo</Text>
@@ -106,7 +107,7 @@ class Profil extends React.Component{
           </View>
         
           <TouchableOpacity disabled ={!this.state.open} onPress={this.toggleOpen} style={styles.body}>
-            <Image style={styles.image } source={{uri:"image"}}/>
+            <Image style={styles.image } source={{uri:imageLink+this.props.Profile.imageID}}/>
           <Text style ={styles.text}>{this.props.Profile.Nom}</Text> 
          
           <Text style ={styles.text}>{this.props.Profile.Prenom}</Text>

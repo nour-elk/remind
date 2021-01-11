@@ -1,11 +1,13 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import {TextInput, Button, Text, View, FlatList, Alert, TouchableOpacity, StyleSheet } from 'react-native';
+import {TextInput, Button, Text, View, FlatList, Alert, TouchableOpacity, StyleSheet ,Image } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useState} from "react";
 import Api from '../../../../services/dataService'
 import react, {Component} from 'react';
 import * as React from 'react';
+
+var imageLink = "https://mk7t0lal8k.execute-api.eu-west-3.amazonaws.com/getImage/";
 
 Array.prototype.unique = function() {
   var a = this.concat();
@@ -30,11 +32,13 @@ class AssoItem extends Component{
         <View style={styles.AssoItemContainer} >
         <TouchableOpacity 
           onPress={() => detailsAsso(Asso)}>
-  
+        <View style={{flex :1 , flexDirection: 'row'}}> 
+        <Image style={styles.image } source={{uri:imageLink+Asso.imageID}}/>
          <Text style ={{fontWeight : "bold",
        fontSize : 20
       }} >{" " + Asso.Nom}</Text> 
-  
+       
+       </View>
         </TouchableOpacity>
         </View>
       )
@@ -146,6 +150,12 @@ function AssoScreen({route, navigation}) {
 
       elevation: 10,
 
+    },
+    image :{
+      height:120,
+      width:100,
+      margin:5,
+      backgroundColor:'gray'
     }
 
 

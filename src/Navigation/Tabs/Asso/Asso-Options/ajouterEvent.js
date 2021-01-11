@@ -2,7 +2,7 @@ import {TextInput, Button, Text, View,ScrollView, FlatList, Alert, TouchableOpac
 import * as React from 'react';
 import react, {Component, Fragment} from 'react';
 import DatePicker from 'react-native-datepicker';
-//import DateTimePicker from '@react-native-community/datetimepicker';
+
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import MapView , { PROVIDER_GOOGLE } from 'react-native-maps';
 import Api from '../../../../../services/dataService';
