@@ -32,7 +32,7 @@ export default {
     },
 
 
-    submitSignup : async  (email, password, nom, prenom, niveau) =>{
+    submitSignup : async  (email, password, nom, prenom, niveau,phone) =>{
       const url = serverBaseUrl + "/SignUser";
 
       var Data ;
@@ -48,7 +48,8 @@ export default {
                   'Password' : String(password ),
                   'Nom' : String(nom),
                   'Prenom' : String(prenom),
-                  'Niveau' : String(niveau)
+                  'Niveau' : String(niveau),
+                  'Phone' :String(phone),
             }}
             )
           ,withCredentials: true ,} 
@@ -245,7 +246,36 @@ export default {
       })
     return Data;
   },
-  submitCreateEvent : async  (ID, Nom, Description,DateDeb ,TimeDeb ,DateFin,TimeFin) =>{
+
+  RemoveCategory : async(Category,assoID  ) =>{
+    const url = serverBaseUrl + "/RemoveCategory"
+    var Data
+
+    await fetch(url, {method: 'POST', 
+            mode: 'cors',
+            headers: { 'Access-Control-Allow-Origin' : "*",
+            'Accept': 'application/json',
+            'Content-Type': ['text/plain;charset=UTF-8','application/json'] 
+        },
+           body :JSON.stringify(
+              {body: {
+                'CategoryName' : String(Category),
+                'assoID' : String(assoID),
+                
+                
+          }}
+          )
+        ,withCredentials: true ,} 
+   ).then( (response)  => response.json()).then( data =>
+      { 
+        console.log(data)
+        Data = data;      
+      
+      })
+    return Data;
+  },
+
+  submitCreateEvent : async  (ID, Nom, Description,DateDeb ,TimeDeb ,DateFin,TimeFin,Adresse) =>{
     const url = serverBaseUrl + "/addEvent";
     var Data ;
     
@@ -263,7 +293,9 @@ export default {
                 'DateDeb': String(DateDeb),
                 'TimeDeb': String(TimeDeb),
                 'DateFin': String(DateFin),
-                'TimeFin': String(TimeFin)
+                'TimeFin': String(TimeFin),
+                'Adresse' :String(Adresse),
+                
           }}
           )
         ,withCredentials: true ,} 
@@ -354,13 +386,82 @@ getAddress(latitude,longitude ){
           )
         ,withCredentials: true} 
     ).then( (response)  => response.json()).then( data =>
-            { alert(JSON.stringify(data))
+            { 
               Data = data;
               
                })
     return Data;
   },
 
+  QuitterAsso : async(Email, assoID) => {
+    const url = serverBaseUrl + "/QuitterAsso"
+    var Data;
+
+    await fetch(url, {method: 'POST', 
+            mode: 'cors',
+            headers: { 'Access-Control-Allow-Origin' : "*",
+            'Accept': 'application/json',
+            'Content-Type': ['text/plain;charset=UTF-8','application/json'] 
+        },
+           body :JSON.stringify(
+              {body: {
+                'assoID': String(assoID),
+                'Email': String(Email)
+          }}
+          )
+        ,withCredentials: true ,} 
+    ).then( (response)  => response.json()).then( data =>
+            { Data = data;
+            })
+    return Data;
+  },
+
+  getEventFav : async(Email) =>{
+    const url = serverBaseUrl + "/getEventFav"
+    var Data
+
+    await fetch(url, {method: 'POST', 
+            mode: 'cors',
+            headers: { 'Access-Control-Allow-Origin' : "*",
+            'Accept': 'application/json',
+            'Content-Type': ['text/plain;charset=UTF-8','application/json'] 
+        },
+           body :JSON.stringify(
+              {body: {
+                'Email': String(Email),
+          }}
+          )
+        ,withCredentials: true} 
+    ).then( (response)  => response.json()).then( data =>
+            { Data = data;
+              
+               })
+    return Data;
+  },
+
+  addEventFav : async(ID,Email) =>{
+    const url = serverBaseUrl + "/addEventFav"
+    var Data
+
+    await fetch(url, {method: 'POST', 
+            mode: 'cors',
+            headers: { 'Access-Control-Allow-Origin' : "*",
+            'Accept': 'application/json',
+            'Content-Type': ['text/plain;charset=UTF-8','application/json'] 
+        },
+           body :JSON.stringify(
+              {body: {
+                'Email': String(Email),
+                'EventID' : String(ID),
+          }}
+          )
+        ,withCredentials: true} 
+    ).then( (response)  => response.json()).then( data =>
+            { Data = data;
+              
+               })
+    return Data;
+  },
 
 
 

@@ -8,6 +8,7 @@ import {useState} from "react";
 
 import mainScreen from './mainWindow'
 import UserDetail from './detailUser'
+import  AssoDetail from "../Asso/detail"
 
 function useForceUpdate(){
     const [value, setValue] = useState(0); // integer state
@@ -26,7 +27,8 @@ function SearchStackScreen({route, navigation}){
     return (
     <SearchStack.Navigator>
         <SearchStack.Screen name= "main"  options={{ headerShown: false }} component = {mainScreen}/>
-        <SearchStack.Screen name = "detailUser" component= {UserDetail} />
+        <SearchStack.Screen name = "Détails du Membre"  initialParams={{ refresh : true}} component= {UserDetail} />
+        <SearchStack.Screen name = "Détails de l'association" component= {AssoDetail} options={{headerShown : false}}/>
     
     </SearchStack.Navigator>
     )

@@ -1,6 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import {TextInput, Button, Text, View, FlatList, Alert, TouchableOpacity,Image } from 'react-native';
+import {TextInput, Button, Text, View, FlatList, Alert, TouchableOpacity,Image,StyleSheet } from 'react-native';
 import {useState,useEffect } from "react";
 import Api from '../../../../services/dataService';
 import react, {Component} from 'react';
@@ -73,32 +73,58 @@ function AddAssos({route, navigation}){
   
           if (Data == "Association created successfully")
           {
-            alert("Association created successfully");
+            alert("Association crée avec succès");
             uploadImageOnS3(file, String(Name).toLowerCase());
            
           }
           else 
           {
-            alert("Error or already exists");
+            alert("Erreur ou existe déja");
           }
         } )
   
     }
   
     return (
-      <View style={{ flex: 1, justifyContent: 'center',  alignItems: 'center' }}>
-     <TextInput style={{height:50}} placeholder = 'Name' onChangeText = {Name => setName(Name)}/>
-     <TextInput style={{marginBottom: 30 }} placeholder = 'Description' onChangeText = {Description => setDescription(Description)}/>
-     <Button style={{marginTop: 30 }}  title="Choisir Votre image" 
+      <View style={styles.mainContainer}>
+     <TextInput style={styles.text} placeholder = 'Nom du club' onChangeText = {Name => setName(Name)}/>
+     <TextInput style={styles.text} placeholder = 'Description du club ' onChangeText = {Description => setDescription(Description)}/>
+     <View style={styles.buttonStyle} >
+     <Button  title="Choisir Votre image" 
      color="#7a25ff"
      onPress={pickImage} />
-      {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
-    
-     <Button style={{marginTop: 30 }} onPress={ addAssosButton}
+     </View>
+      {image && <Image source={{ uri: image }} style={styles.image} />}
+      <View style={styles.buttonStyle}>
+     <Button  onPress={ addAssosButton}
      title ='Ajouter Association ou Club '
      color="#7a25ff" />
+     </View>
     </View>
     )
   }
   
   export default AddAssos;
+
+  const styles = StyleSheet.create({
+    mainContainer :{ 
+    
+      flex : 1,
+      
+      alignItems: 'center' 
+    },
+    text:{
+      height:50
+    },
+    buttonStyle :{
+      marginTop: 20,
+      
+      height:50
+    },
+    image :{
+      width: 200,
+      height: 200
+    }
+  
+    
+  })

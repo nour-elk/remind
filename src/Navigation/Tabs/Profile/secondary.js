@@ -27,16 +27,21 @@ function SecondaryProfileScreen ({route, navigation}) {
        {
            console.log("right");
            console.log(Data);
+           alert("Mot de Passe modifié avec succès")
        }
        else{
-           alert ("Wrong ");
+         if (Data=="password incorrect")
+         {
+           alert("Ancien Mot de Passe erroné")
+         }
+           //alert ("Wrong ");
            console.log(Data);
        }
 
       });
     }
     else{
-      alert("Passwords do not match")
+      alert("Mots de passe non similaires")
     }
     
   }
@@ -44,31 +49,31 @@ function SecondaryProfileScreen ({route, navigation}) {
 
   const  matchPassword =(Password1,Password2)=>{ 
     if (Password1===Password2)
-    {text= "Passwords Match"}
+    {text= "Mots de passe similaires"}
     else 
     {
-      text= "Passwords do not match "
+      text= "Mots de passe non similaires "
     }
     return(text);
 
 
   }
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1,padding:5 }}>
       <ScrollView >
       <TextInput
        style = {styles.textBox} 
-       placeholder = 'Old Password' 
+       placeholder = 'Ancien mot de passe' 
        onChangeText={text => setPassword(text)}
       />
       <TextInput
        style = {styles.textBox} 
-       placeholder = 'New Password' 
+       placeholder = 'Nouveau mot de passe' 
        onChangeText = {text => setPassword1(text)}
       />
       <TextInput
        style = {styles.textBox} 
-       placeholder = 'Repeat New Password' 
+       placeholder = 'Répéter nouveau mot de passe' 
        onChangeText = {text => setPassword2(text)} 
 
       />
@@ -79,7 +84,7 @@ function SecondaryProfileScreen ({route, navigation}) {
               color="#7a25ff"
               style = {{marginBottom : 10, marginBottom : 10}}
               onPress={ onEditPassword }
-              title="Change Password "
+              title="Changer mot de passe "
               disabled = {!touchable}
             />
                 </View>

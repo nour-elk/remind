@@ -1,8 +1,11 @@
-import {TextInput, Button, Text, View,ScrollView, FlatList, Alert, TouchableOpacity, StyleSheet } from 'react-native';
+import {TextInput, Button, Text, View,ScrollView, FlatList, Alert, TouchableOpacity, StyleSheet,Image } from 'react-native';
 import * as React from 'react';
+import  { useState, useEffect } from 'react';
 import react, {Component, Fragment} from 'react';
 import DatePicker from 'react-native-datepicker';
-
+import {S3} from 'aws-sdk';
+import * as fs from 'expo-file-system';
+import * as ImagePicker from 'expo-image-picker';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import MapView , { PROVIDER_GOOGLE } from 'react-native-maps';
 import Api from '../../../../../services/dataService';
@@ -39,12 +42,14 @@ class Event extends React.Component{
         isDatePickerVisible1 : false,
         isDatePickerVisible2 : false,
         listViewDisplayed: true,
+        assoID : this.props.assoID, 
         region: {
             latitude: 37.78825,
             longitude: -122.4324,
             latitudeDelta:0.2,
             longitudeDelta:0.33,
             },
+           
         address:"",
         searchText:"",
         
@@ -57,7 +62,7 @@ class Event extends React.Component{
 
 };
 
-//Localisation.requestAuthorization();
+// extraction données
     setNom = (a) =>{
         this.state.Nom = a;
     }
@@ -79,7 +84,7 @@ class Event extends React.Component{
         this.setState({TimeFin : a});
         Alert(a);
     }
-
+    // acces à google API
     getAddress(){
         //function to get address using current lat and lng
         fetch("https://maps.googleapis.com/maps/api/geocode/json?address=" + this.state.region.latitude+"," +this.state.region.longitude +"&key=AIzaSyAnNoReLkgZdFdUe_eQG-ZZZMQcdISFCgY" ).then((response) => response.json()).then((responseJson) => {
@@ -96,24 +101,27 @@ class Event extends React.Component{
         Api.getAddress(this.state.region.latitude,this.state.region.longitude).then((Data)=> {this.setState({ address:  Data})
             alert(Data)})
     }
-    onAddLocation= ()=>{}
-    
+ 
+    // ajouter event à la base
     AddEvent= ()=> {
-        Api.submitCreateEvent(this.props.ID , this.state.Nom, this.state.Description,this.state.DateDeb ,this.state.TimeDeb ,this.state.DateFin,this.state.TimeFin).then((Data) =>{
+        Api.submitCreateEvent(this.props.ID , this.state.Nom, this.state.Description,this.state.DateDeb ,this.state.TimeDeb ,this.state.DateFin,this.state.TimeFin,this.state.address).then((Data) =>{
           
   
             if (Data == "Event created successfully")
             {
-              alert("Event created successfully");
+              alert("Evènement créé avec succès");
+              this.props.uploadImageOnS3(this.props.file, String(this.state.Nom).toLowerCase());
+              this.props.navigation.navigate('Home', {refresh : true})
               
             }
             else 
             {
-              alert("Error or already exists");
+              alert("Erreur ou existe déja");
             }
           } )
-    }
 
+    }
+    // localisation du map
     getLocation= () => {
         return(
             new promise((resolve,reject)=>
@@ -139,7 +147,7 @@ class Event extends React.Component{
             }
         );
     }
-    
+    // localisation initiale
     getInitialState() {
         getLocation().then(
             (data) => {
@@ -169,6 +177,7 @@ class Event extends React.Component{
 
     onMapRegionChange(region) {
         this.setState({ region });
+        
     }
 
 
@@ -269,7 +278,19 @@ class Event extends React.Component{
                 
                 </View>
                 </View>
-               
+
+                <View style ={{marginLeft : 90,marginRight: 90, marginBottom:20}}>
+                <Button 
+                    onPress={ this.props.pickImage}
+                    color="#7a25ff"
+                    title="ajouter photo de l'évènement"/>
+                    </View>
+                    
+                <View style={{alignItems: 'center'}}>  
+                {this.props.image && <Image source={{ uri: this.props.image }} style={{ marginBottom : 20 ,width: 200, height: 200 }} />}    
+                </View>  
+
+
                 <MapView        style={{flex: 1, height:300, width:360, alignContent:"center"}}
                 provider={PROVIDER_GOOGLE}
                 showsUserLocation ={true}
@@ -337,13 +358,13 @@ class Event extends React.Component{
                 <Button 
                     onPress={this.onAddLocation }
                     color="#7a25ff"
-                    title="add localisation"/>
+                    title="ajouter localisation"/>
                     </View>
                     <View style ={{marginTop : 15,marginLeft : 210,marginRight: 20}}>
                 <Button 
                     onPress={ this.AddEvent}
                     color="#7a25ff"
-                    title="add event"/>
+                    title="ajouter évènement"/>
                     </View>
                     </View>
                 
@@ -359,10 +380,62 @@ class Event extends React.Component{
 
 function addEvent({route, navigation}){
     //alert (route.params.assoID);
+    const [image, setImage] = useState(null);
+    const[file, setFile] = useState({})
+
+    useEffect(() => {
+      (async () => {
+        if (Platform.OS !== 'web') {
+          const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
+          if (status !== 'granted') {
+            alert('Sorry, we need camera roll permissions to make this work!');
+          }
+        }
+      })();
+    }, []);
+  
+    const pickImage = async () => {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 0.5,
+      });
+  
+      console.log(result);
+  
+      if (!result.cancelled) {
+        setImage(result.uri);
+        setFile({
+          uri: result.uri,
+          name: "random",
+          type: result.type,
+       });
+       
+      }
+    };  
+  
+    const uploadImageOnS3 = async (file,ID) => {
+      const s3bucket = new S3({
+        accessKeyId: 'AKIA2EWC25SSF42E5RZW',
+        secretAccessKey: '697267055780',
+        Bucket: 'image-nour-remind',
+        signatureVersion: 'v4',
+      });
+   let contentType = 'image/jpeg';
+      let contentDeposition = 'inline;filename="' + file.name + '"';
+      console.log(file);
+      const arrayBuffer = await fs.readAsStringAsync(file.uri,  {encoding : fs.EncodingType.Base64});
+      Api.sendImage(ID, arrayBuffer, "EVENT","ID").then((Data) => {
+        console.log(Data);
+        
+      })
+      
+    }
 
     return(
         <View>
-           <Event ID={route.params.assoID}></Event>
+           <Event image ={image} file={file} navigation={navigation} uploadImageOnS3={uploadImageOnS3} pickImage ={pickImage} ID={route.params.assoID}></Event>
            
        </View>)
    }

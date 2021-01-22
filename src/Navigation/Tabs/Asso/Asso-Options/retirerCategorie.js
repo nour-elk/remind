@@ -44,6 +44,30 @@ class EditWindow extends Component{
     }
     removeCategory = () => {
 
+        console.log(this.props.assoID)
+        try{
+        Api.RemoveCategory(this.state.memberCategory.name,this.props.assoID).then((Data) => {
+            if(Data == "Success") {
+                alert("Catégorie retirée avec succès")
+                this.setState({selectedCategoryMemberToRemove : ""})
+                this.updateCategory(this.props.assoID);}
+            else{
+                if (Data == "Not empty Category"){
+                    alert ("Catégorie non vide")
+
+                }
+                else {
+                alert("Failed");
+                }
+                
+            }
+            
+        })
+        }
+        catch(e){
+            alert("Failed due to error");
+        }        
+
     }
     render () {
         return (
@@ -63,17 +87,18 @@ class EditWindow extends Component{
                     resetValue={false}
                     textInputProps={
                     {
-                        placeholder: "Category",
+                        placeholder: "Catégorie",
                         underlineColorAndroid: "transparent",
                         style: {padding: 12,borderWidth: 1,borderColor: '#ccc',borderRadius: 5,},
                     }}
                     listProps={{nestedScrollEnabled: true,}}
                     />
                     
-                    
+                    <View style ={styles.buttonStyle}>
                     <Button title= "Retirer une categorie" 
                     color="#7a25ff"
                     onPress =  {this.removeCategory}  />
+                    </View>
 
         </Fragment>
         )       
@@ -108,6 +133,14 @@ const styles = StyleSheet.create({
         borderColor: '#bbb',
         borderWidth: 1,
         borderRadius: 5,
+        },
+
+        buttonStyle :{
+            alignItems : 'center',
+            marginTop : 20,
+            height:18
+    
+    
         }
 
     

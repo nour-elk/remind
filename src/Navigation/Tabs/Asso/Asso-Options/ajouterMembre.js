@@ -60,10 +60,11 @@ class EditWindow extends Component{
     addMember = () =>{
         Api.AddMemberToAsso(this.state.selectedItems.Email, this.state.memberCategory.name, this.props.assoID).then( (Data) => {
             if(Data == "Success") {
-                alert("User added as member")
+                alert("Membre ajouté")
             }
             else{
-                alert("Failed");
+                alert("Erreur ou existe déja");
+                
             }
         });   
     }
@@ -84,7 +85,7 @@ class EditWindow extends Component{
                     resetValue={false}
                     textInputProps={
                     {
-                        placeholder: "Member",
+                        placeholder: "Membre",
                         underlineColorAndroid: "transparent",
                         style: {padding: 12,borderWidth: 1,borderColor: '#ccc',borderRadius: 5,},
                         onTextChange:  text => {this.updateSearch(text)}
@@ -109,15 +110,17 @@ class EditWindow extends Component{
                     resetValue={false}
                     textInputProps={
                     {
-                        placeholder: "Category",
+                        placeholder: "Catégorie",
                         underlineColorAndroid: "transparent",
                         style: {padding: 12,borderWidth: 1,borderColor: '#ccc',borderRadius: 5,},
                     }}
                     listProps={{nestedScrollEnabled: true,}}
                     />
+            <View style= {styles.buttonStyle}>
             <Button title= "Ajouter membre" 
             color="#7a25ff"
             onPress = {this.addMember}/>
+            </View>
             </Fragment>
             
 
@@ -146,7 +149,14 @@ const styles = StyleSheet.create({
         borderColor: '#bbb',
         borderWidth: 1,
         borderRadius: 5,
-        }
+        },
+    buttonStyle :{
+        alignItems : 'center',
+        marginTop : 20,
+        height:18
+
+
+    }
 
     
 })

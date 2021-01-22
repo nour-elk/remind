@@ -1,5 +1,5 @@
 
-import {TextInput, Button, Text, View,ScrollView, FlatList, Alert, TouchableOpacity } from 'react-native';
+import {TextInput, Button, Text, View,ScrollView, FlatList, Alert, TouchableOpacity , StyleSheet} from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import DropDownPicker from 'react-native-dropdown-picker';
 import react, {Component, Fragment} from 'react';
@@ -8,7 +8,6 @@ import * as React from 'react';
 
 
 import HomeScreen from './mainWindow'
-import secondaryHomeScreen from './secondary'
 import EventDetail from './details'
 
 class Home extends Component{
@@ -24,8 +23,8 @@ class Home extends Component{
         return(
     <DropDownPicker
         items={[
-            {label: 'Tous les évènements', value: '0', icon: () => <Icon name="bookmark" size={18} color="#900" />, hidden: true},
-            {label: 'Favoris', value: '1', icon: () => <Icon name="star" size={18} color="#900" />},
+            {label: 'Tous les évènements', value: '0', icon: () => <Icon name="bookmark" size={18} color="#f38efa" />},
+            
            
         ]}
         defaultValue={this.state.eventType}
@@ -38,11 +37,9 @@ class Home extends Component{
         onChangeItem={item => {this.setState({
             eventType: item.value,
         })
-        if (item.value=='1')
-            this.props.navigation.navigate("Favoris")
-            else
-            if (item.value=='0')
+        if (item.value=='0')
             this.props.navigation.navigate("TousEvent")
+            
 
     }
 
@@ -57,16 +54,16 @@ function HomeStackScreen({route,navigation}) {
   return (
     <View style={{ flex: 1}}> 
     <View  style={{ flex: 1}}>
-    <TouchableOpacity  style = {{  borderLeftWidth:1, borderLeftColor :"#c2c2c2", flex : 1, backgroundColor : "white"}}>
-   <View style={{ alignItems: 'center', marginTop: 30 , flex: 0,flexDirection: 'row',borderBottomColor: 'black',borderBottomWidth: 1,height : 32.2}}>
+    <TouchableOpacity  style = {{ flex : 1}}>
+   <View style={styles.Header}>
      <View > 
-     <Text style= {{fontSize : 20,  color: "#7a25ff", fontWeight:"bold"}}>Home</Text>
+     <Text style= {styles.textHeader}>Home</Text>
      
    </View>
    </View>
    </TouchableOpacity>
   
-   <View style={{ flex: 1, marginTop:80,marginBottom:40, marginLeft:165}}> 
+   <View style={{ flex: 1, marginTop:70,marginBottom:40, marginLeft:180, marginRight:5}}> 
              <Home navigation={navigation}/>
              </View>  
             
@@ -74,7 +71,6 @@ function HomeStackScreen({route,navigation}) {
     <View style={{ flex: 10000, justifyContent:"flex-start"}}> 
     <HomeStack.Navigator >
       <HomeStack.Screen name= "TousEvent"  options={{ headerShown: false }} initialParams={{ mail: route.params.mail , refresh : true}} component = {HomeScreen}/>
-      <HomeStack.Screen name= "Favoris"  options={{ headerShown: false }} component = {secondaryHomeScreen}/>
       <HomeStack.Screen name = "details" component= {EventDetail} options={{headerShown : false}}/>
     </HomeStack.Navigator>
     </View>
@@ -84,3 +80,32 @@ function HomeStackScreen({route,navigation}) {
 }
 
 export default HomeStackScreen;
+
+const styles = StyleSheet.create({
+
+    mainContainer :{ 
+      
+      flex : 1,
+    },
+  
+    Header : {
+      flex: 0,
+      flexDirection: 'row', 
+      borderBottomColor: 'white',
+      borderBottomWidth: 2.5,
+      backgroundColor : '#7a25ff',
+      //backgroundColor : '#34458b',
+      height:50,
+      
+    },
+    textHeader :{
+      flex : 1,
+      fontWeight:"bold",
+      fontSize: 20, 
+      marginLeft:10,
+      color:"#ffffff",
+      height :20,
+      alignContent:'center',
+      textAlignVertical:'center'
+    },
+})

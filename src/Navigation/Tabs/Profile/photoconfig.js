@@ -1,4 +1,4 @@
-import {TextInput, Button, Text, View,ScrollView, FlatList, Alert, TouchableOpacity, Image } from 'react-native';
+import {TextInput, Button, Text, View,ScrollView, FlatList, Alert, TouchableOpacity, Image ,StyleSheet} from 'react-native';
 import react, {Component} from 'react';
 import * as React from 'react';
 
@@ -64,70 +64,54 @@ function PhotoProfileScreen({route, navigation}) {
     
     Api.sendImage(route.params.mail, arrayBuffer, "USER","Email").then((Data) => {
       console.log(Data);
+      if (Data=="Image sent successfully")
+      {
+        alert("Photo modifiée avec succès")
+      }
+      
       
     })
-    //const arrayBuffer = decode(base64);
- /*s3bucket.createBucket(() => {
-      const params = {
-        Bucket: 'image-nour-remind',
-        Key: file.name,
-        Body: arrayBuffer,
-        ContentDisposition: contentDeposition,
-        ContentType: 'base64',
-    };
- s3bucket.upload(params, (err, data) => {
-      if (err) {
-        console.log(err)
-        console.log('error in callback');
-      }
-    console.log(data)
-    console.log('success');
-    console.log("Respomse URL : "+ data.Location);
-    });
-  });*/
+    
  };
 
 
 
     return (
-      <View style={{ flex: 1 }}>
-      <ScrollView >
+      <View style={styles.mainContainer}>
       
-      <Button title="Choisir Votre image" onPress={pickImage} />
-      {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+      <View style={styles.buttonStyle}>  
+      <Button title="Choisir Votre image"  color="#7a25ff" onPress={pickImage} />
+      </View>
+      {image && <Image source={{ uri: image }} style={styles.image} />}
     
 
-    </ScrollView>
+    
     </View>
     );
   }
 
   export default PhotoProfileScreen;
 
-  /*
+  const styles= StyleSheet.create({
+    mainContainer:{
+      flex:1,
+      marginTop:30,
+      alignItems:'center'
 
-  const chooseImage = async () => {
-    ImagePicker.launchImageLibrary({
-    mediaType :'photo', 
-    storageOptions: {
-        skipBackup: true,
-        path: 'images',
-      },  
-    
-    
-},  async (response) => {
-  if (response.didCancel) {
-    console.log("No image not selected");
-        } else if (response.error) {
-            console.log('ImagePicker Error: ', response.error);
-    } else {
-        const file = {
-            uri: response.uri,
-            name: response.fileName,
-            type: 'image/jpeg',
-         };
-         uploadImageOnS3(file);
-        }
-})
-    };
-  */
+    },
+    buttonStyle: {
+      marginLeft : 80,
+      marginRight: 80,
+      marginBottom : 10,
+      marginBottom : 10,
+      marginTop:20
+  },
+    image :{
+      height:200,
+      width:200,
+      
+      backgroundColor:'gray',
+      
+    },
+
+  })

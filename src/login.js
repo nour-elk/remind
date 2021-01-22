@@ -18,7 +18,7 @@ export default class Login extends Component{
             textValue : ""
         };
     };
-
+    // fct bouton login
     onLoginPress = () => {
      Api.submitLogin(this.state.Email, this.state.password).then((Data) => 
        {
@@ -38,10 +38,12 @@ export default class Login extends Component{
        });
        
     }
-
+    // fct bouton signup
     onSignPress=() => {
         this.props.getLog({log : false, window : 1, email : ""});
     }
+
+    //extraction des données
     setEmail = (a) =>{
         this.state.Email = a;
     }

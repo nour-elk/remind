@@ -21,11 +21,13 @@ import HomeStackScreen from "./Tabs/Home/HomeStack";
 const Tab = createBottomTabNavigator();
 
 var email ;
+var refresh;
 function returnsMail() {
   return  email;
 }
-export default function show(mail) {
+export default function show(mail,callback) {
   email = mail;
+  refresh= false;
   
   return (
     <NavigationContainer>
@@ -37,6 +39,7 @@ export default function show(mail) {
             iconName = focused
             ? 'ios-information-circle'
             : 'ios-information-circle-outline';
+            refresh= true;
           } else if (route.name === 'Search') {
             iconName = focused
             ? 'ios-search'
@@ -56,11 +59,11 @@ export default function show(mail) {
       return <Ionicons name={iconName} size={size} color={color} />;
         },
       })}
-      tabBarOptions={{ activeTintColor: '#660033', inactiveTintColor: 'gray',}}
+      tabBarOptions={{ activeTintColor: '#f38efa', inactiveTintColor: 'black',}}
       >
-        <Tab.Screen name="Home" component={HomeStackScreen} initialParams={{ mail: mail }}/>
+        <Tab.Screen name="Home" component={HomeStackScreen} initialParams={{ mail: mail , refresh : refresh}}/>
         <Tab.Screen name="Search" component= {SearchStackScreen} initialParams = {{refresh: true}}/>
-        <Tab.Screen name="Profile" component= {ProfileStackScreen} initialParams={{ mail: mail }}/>
+        <Tab.Screen name="Profile" component= {ProfileStackScreen} initialParams={{ mail: mail , getLog : callback}}/>
         <Tab.Screen name="Asso"  component= {AssoStackScreen} initialParams={{ mail: mail }}/>
         
       </Tab.Navigator>

@@ -12,9 +12,9 @@ const ProfileStack = createStackNavigator();
 function ProfileStackScreen({route}) {
   return (
     <ProfileStack.Navigator>
-      <ProfileStack.Screen name= "profile"  options={{ headerShown: false }} initialParams={{ mail: route.params.mail , refresh : true}} component = {ProfileScreen}/>
-      <ProfileStack.Screen name= "Parametres" initialParams={{ mail: route.params.mail}} component = {SecondaryProfileScreen}/>
-      <ProfileStack.Screen name ="photoParam" initialParams={{ mail: route.params.mail }}component ={PhotoProfileScreen}/>
+      <ProfileStack.Screen name= "profile"  options={{ headerShown: false }} initialParams={{ mail: route.params.mail,getLog: route.params.getLog,  refresh : true}} component = {ProfileScreen}/>
+      <ProfileStack.Screen name= "Paramètres" initialParams={{ mail: route.params.mail}} component = {SecondaryProfileScreen}/>
+      <ProfileStack.Screen name ="Paramètres Photo" initialParams={{ mail: route.params.mail }}component ={PhotoProfileScreen}/>
     </ProfileStack.Navigator>
   );
 }

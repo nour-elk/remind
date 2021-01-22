@@ -32,10 +32,10 @@ class EditWindow extends Component{
         console.log(this.state.categoryTextInput);
         Api.addAssoCategory(this.state.categoryTextInput, this.props.assoID).then((Data) =>{
             if(Data == "Success"){
-                alert("successefully added category")
+                alert("Catégorie ajoutée")
             }
             else{
-                alert("Failed");
+                alert("Erreur ou existe déja");
             }
         }
         
@@ -44,12 +44,14 @@ class EditWindow extends Component{
 
     render(){
         return(
-            <View>
-                <Text> Add Category </Text>
-                <TextInput placeholder= "Category name" onChangeText ={text => this.setCategoryTextInput(text)}/>
-                <Button title= "Ajouter une Categorie" 
+            <View style={styles.mainContainer}>
+                
+                <TextInput style={styles.textStyle} placeholder= "Nom de Catégorie" onChangeText ={text => this.setCategoryTextInput(text)}/>
+                <View style ={styles.buttonStyle}>
+                <Button title= "Ajouter une Catégorie" 
                 color="#7a25ff"
                 onPress =  {this.addCategory} />
+                </View>
             </View>
         )
 
@@ -74,14 +76,23 @@ export default addCategory;
 
 const styles = StyleSheet.create({
 
-    SearchableDropdownStyleItem : {
-        padding: 10,
-        marginTop: 2,
-        backgroundColor: '#ddd',
-        borderColor: '#bbb',
-        borderWidth: 1,
-        borderRadius: 5,
-        }
+    mainContainer : {
+        padding: 5,
+        
+        
+        },
+        buttonStyle :{
+            alignItems : 'center',
+            marginTop : 20,
+            height:18
+    
+    
+        },
+        textStyle: {
+            padding: 12,
+            borderWidth: 1,
+            borderColor: '#ccc',
+            borderRadius: 5,}
 
     
 })

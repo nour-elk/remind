@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, TextInput, View, Button} from 'react-native';
+import { StyleSheet,StatusBar, Text, TextInput, View, Button} from 'react-native';
 import show from './Navigation/Navigation'
 
 
@@ -11,20 +11,21 @@ export default class Dashboard extends Component{
         this.email = this.props.email;
         
     }
-
+    // fct du sign out
     buttonPress = () => {
         this.props.getLog( {log : false, window : 0, email : ""});
+        
     }
     render() {
      return (
+         <View style ={styles.container}>
+        <View style ={styles.header} >
+            <StatusBar backgroundColor='#43128f' barStyle ='light-content'/>
+        </View>   
          <View style = {{flex : 1}}>
-         {show(this.email)}
-        <View style = {styles.buttonStyle}>
-         <Button onPress = {this.buttonPress} style = {styles.buttonStyle}
-            title="Sign out"
-            color="#7a25ff"
-        />
-        </View>
+         {show(this.email,this.buttonPress)}
+        
+    </View>
     </View>
     
      )
@@ -35,11 +36,12 @@ const styles = StyleSheet.create(
     {
         container   : {
             flex :1,
-            marginTop : 0.5,
+            
         },
-        buttonStyle: {
-            marginLeft : 110,
-            marginRight: 110
+        header :{
+            
+            backgroundColor :'#6018cf',
+            
         }
     }
 )
